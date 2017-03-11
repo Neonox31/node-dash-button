@@ -52,6 +52,9 @@ var register = function(mac_addresses, iface, timeout, protocol) {
     mac_addresses.forEach(function(mac_address){
         just_emitted[mac_address] = false;
     });
+    readStream.on('close', function() {
+       pcap_session.close();
+    });
     pcap_session.on('packet', function(raw_packet) {
         var packet;
 
